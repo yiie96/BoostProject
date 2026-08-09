@@ -173,9 +173,9 @@
   <div class="icon">💡</div>
   <h3>Idea Generator</h3>
   <p>Generate fresh ideas for your projects and content.</p>
-  <button onclick="alert('Idea Generator coming soon!')">
-    Open Tool
-  </button>
+  <button onclick="openIdeaTool()">
+  Open Tool
+</button>
 </div>
 
 <div class="card">
@@ -214,7 +214,42 @@
 <button class="back" onclick="closeTools()">
   ← Back
 </button>
+<div class="tool-box" id="ideaTool">
 
+  <h2>💡 Idea Generator</h2>
+
+  <input
+    id="ideaTopic"
+    type="text"
+    placeholder="Enter your topic..."
+    style="
+      width:100%;
+      padding:15px;
+      border-radius:10px;
+      border:1px solid #475569;
+      background:#0f172a;
+      color:white;
+      outline:none;
+    "
+  >
+
+  <button onclick="generateIdeas()">
+    ✨ Generate Ideas
+  </button>
+
+  <div class="result" id="ideaResult">
+    Your ideas will appear here.
+  </div>
+
+  <button onclick="copyIdeas()">
+    📋 Copy Ideas
+  </button>
+
+  <button class="back" onclick="closeTools()">
+    ← Back
+  </button>
+
+</div>
   </div>  <div class="tool-box" id="calculator"><h2>📊 Calculator</h2>
 
 <input
@@ -286,7 +321,54 @@ function copyText() {
 
   alert("Copied!");
 }
+function openIdeaTool() {
 
+  document.getElementById("ideaTool").style.display = "block";
+  document.getElementById("textTool").style.display = "none";
+  document.getElementById("calculator").style.display = "none";
+
+  window.scrollTo({
+    top: document.getElementById("ideaTool").offsetTop,
+    behavior: "smooth"
+  });
+}
+
+function generateIdeas() {
+
+  let topic = document.getElementById("ideaTopic").value.trim();
+
+  if (topic === "") {
+    document.getElementById("ideaResult").innerText =
+      "Please enter a topic first.";
+    return;
+  }
+
+  let ideas = [
+    "10 Things Nobody Tells You About " + topic,
+    "The Beginner's Guide to " + topic,
+    "5 Mistakes People Make With " + topic,
+    "How to Get Better at " + topic,
+    "The Truth About " + topic,
+    "7 Useful Tips About " + topic,
+    "Why Everyone Should Know About " + topic,
+    "The Future of " + topic,
+    "Things You Should Stop Doing With " + topic,
+    "How to Master " + topic + " Step by Step"
+  ];
+
+  document.getElementById("ideaResult").innerText =
+    ideas.map((idea, index) => (index + 1) + ". " + idea).join("\n\n");
+}
+
+function copyIdeas() {
+
+  let result =
+    document.getElementById("ideaResult").innerText;
+
+  navigator.clipboard.writeText(result);
+
+  alert("Ideas copied!");
+}
 function openCalculator() {
 
   document.getElementById("calculator").style.display = "block";
@@ -323,6 +405,7 @@ function calculate() {
 function closeTools() {
 
   document.getElementById("textTool").style.display = "none";
+  document.getElementById("ideaTool").style.display = "none";
   document.getElementById("calculator").style.display = "none";
 
   window.scrollTo({
