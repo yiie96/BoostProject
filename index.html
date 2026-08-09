@@ -189,9 +189,9 @@
   <div class="icon">⚡</div>
   <h3>Boost Tools</h3>
   <p>More useful tools will be added soon.</p>
-  <button onclick="alert('More tools coming soon!')">
-    Open Tool
-  </button>
+ <button onclick="openBoostTools()">
+  Open Tool
+</button>
 </div>
 
   </section>  <div class="tool-box" id="textTool"><h2>✍️ Text Generator</h2>
@@ -243,6 +243,31 @@
 
   <button onclick="copyIdeas()">
     📋 Copy Ideas
+  </button>
+
+  <button class="back" onclick="closeTools()">
+    ← Back
+  </button>
+
+</div> <div class="tool-box" id="boostTool">
+
+  <h2>⚡ Text Summarizer</h2>
+
+  <textarea
+    id="summaryInput"
+    placeholder="Paste your text here..."
+  ></textarea>
+
+  <button onclick="summarizeText()">
+    ✨ Summarize Text
+  </button>
+
+  <div class="result" id="summaryResult">
+    Your summary will appear here.
+  </div>
+
+  <button onclick="copySummary()">
+    📋 Copy Summary
   </button>
 
   <button class="back" onclick="closeTools()">
@@ -369,6 +394,51 @@ function copyIdeas() {
 
   alert("Ideas copied!");
 }
+  function openBoostTools() {
+
+  document.getElementById("boostTool").style.display = "block";
+  document.getElementById("textTool").style.display = "none";
+  document.getElementById("ideaTool").style.display = "none";
+  document.getElementById("calculator").style.display = "none";
+
+  window.scrollTo({
+    top: document.getElementById("boostTool").offsetTop,
+    behavior: "smooth"
+  });
+}
+
+function summarizeText() {
+
+  let text = document.getElementById("summaryInput").value.trim();
+
+  if (text === "") {
+    document.getElementById("summaryResult").innerText =
+      "Please enter some text first.";
+    return;
+  }
+
+  let sentences = text.match(/[^.!?]+[.!?]+/g);
+
+  if (!sentences || sentences.length <= 2) {
+    document.getElementById("summaryResult").innerText = text;
+    return;
+  }
+
+  let summary = sentences.slice(0, 2).join(" ").trim();
+
+  document.getElementById("summaryResult").innerText =
+    summary;
+}
+
+function copySummary() {
+
+  let result =
+    document.getElementById("summaryResult").innerText;
+
+  navigator.clipboard.writeText(result);
+
+  alert("Summary copied!");
+}
 function openCalculator() {
 
   document.getElementById("calculator").style.display = "block";
@@ -406,6 +476,7 @@ function closeTools() {
 
   document.getElementById("textTool").style.display = "none";
   document.getElementById("ideaTool").style.display = "none";
+  document.getElementById("boostTool").style.display = "none";
   document.getElementById("calculator").style.display = "none";
 
   window.scrollTo({
