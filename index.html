@@ -54,7 +54,6 @@
 
     .hero p {
       color: #94a3b8;
-      font-size: 16px;
     }
 
     .tools {
@@ -107,61 +106,230 @@
       background: #7dd3fc;
     }
 
+    .tool-box {
+      display: none;
+      margin-top: 30px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .tool-box h2 {
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: white;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #38bdf8;
+    }
+
+    .result {
+      margin-top: 15px;
+      padding: 15px;
+      background: #0f172a;
+      border-radius: 10px;
+      min-height: 100px;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    .back {
+      background: #334155;
+    }
+
     footer {
       text-align: center;
       color: #64748b;
       padding: 30px;
       margin-top: 40px;
     }
-  </style></head><body>  <header>
-    <h1>🚀 Boost Project</h1>
-    <p>Simple tools. Powerful results.</p>
-  </header>  <div class="container"><section class="hero">
-  <h2>Boost Your <span>Productivity</span></h2>
-  <p>All your useful tools in one simple place.</p>
-</section>
+  </style></head><body><header>
+  <h1>🚀 Boost Project</h1>
+  <p>Simple tools. Powerful results.</p>
+</header><div class="container">  <section class="hero">
+    <h2>Boost Your <span>Productivity</span></h2>
+    <p>Useful tools in one simple place.</p>
+  </section>  <section class="tools"><div class="card">
+  <div class="icon">✍️</div>
+  <h3>Text Generator</h3>
+  <p>Transform your text into cleaner and better writing.</p>
+  <button onclick="openTextTool()">Open Tool</button>
+</div>
 
-<section class="tools">
+<div class="card">
+  <div class="icon">💡</div>
+  <h3>Idea Generator</h3>
+  <p>Generate fresh ideas for your projects and content.</p>
+  <button onclick="alert('Idea Generator coming soon!')">
+    Open Tool
+  </button>
+</div>
 
-  <div class="card">
-    <div class="icon">✍️</div>
-    <h3>Text Generator</h3>
-    <p>Create useful text quickly with our simple generator.</p>
-    <button onclick="alert('Text Generator coming soon!')">
-      Open Tool
-    </button>
-  </div>
+<div class="card">
+  <div class="icon">📊</div>
+  <h3>Calculator</h3>
+  <p>Quickly calculate numbers and simple calculations.</p>
+  <button onclick="openCalculator()">Open Tool</button>
+</div>
 
-  <div class="card">
-    <div class="icon">💡</div>
-    <h3>Idea Generator</h3>
-    <p>Generate fresh ideas for your projects and content.</p>
-    <button onclick="alert('Idea Generator coming soon!')">
-      Open Tool
-    </button>
-  </div>
+<div class="card">
+  <div class="icon">⚡</div>
+  <h3>Boost Tools</h3>
+  <p>More useful tools will be added soon.</p>
+  <button onclick="alert('More tools coming soon!')">
+    Open Tool
+  </button>
+</div>
 
-  <div class="card">
-    <div class="icon">📊</div>
-    <h3>Calculator</h3>
-    <p>Quickly calculate numbers and simple calculations.</p>
-    <button onclick="alert('Calculator coming soon!')">
-      Open Tool
-    </button>
-  </div>
+  </section>  <div class="tool-box" id="textTool"><h2>✍️ Text Generator</h2>
 
-  <div class="card">
-    <div class="icon">⚡</div>
-    <h3>Boost Tools</h3>
-    <p>More useful tools will be added to Boost Project.</p>
-    <button onclick="alert('More tools coming soon!')">
-      Open Tool
-    </button>
-  </div>
+<textarea id="textInput"
+  placeholder="Type or paste your text here..."></textarea>
 
-</section>
+<button onclick="improveText()">
+  ✨ Improve My Text
+</button>
 
-  </div>  <footer>
-    © 2026 Boost Project. All rights reserved.
-  </footer></body>
+<div class="result" id="textResult">
+  Your improved text will appear here.
+</div>
+
+<button onclick="copyText()">
+  📋 Copy Result
+</button>
+
+<button class="back" onclick="closeTools()">
+  ← Back
+</button>
+
+  </div>  <div class="tool-box" id="calculator"><h2>📊 Calculator</h2>
+
+<input
+  id="calcInput"
+  type="text"
+  placeholder="Example: 25 + 75"
+  style="
+    width:100%;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #475569;
+    background:#0f172a;
+    color:white;
+    outline:none;
+  "
+>
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result" id="calcResult">
+  Result will appear here.
+</div>
+
+<button class="back" onclick="closeTools()">
+  ← Back
+</button>
+
+  </div></div><footer>
+  © 2026 Boost Project
+</footer><script>
+
+function openTextTool() {
+  document.getElementById("textTool").style.display = "block";
+  document.getElementById("calculator").style.display = "none";
+  window.scrollTo({
+    top: document.getElementById("textTool").offsetTop,
+    behavior: "smooth"
+  });
+}
+
+function improveText() {
+
+  let text = document.getElementById("textInput").value;
+
+  if (text.trim() === "") {
+    document.getElementById("textResult").innerText =
+      "Please enter some text first.";
+    return;
+  }
+
+  let improved = text
+    .replace(/\s+/g, " ")
+    .trim();
+
+  improved =
+    improved.charAt(0).toUpperCase() +
+    improved.slice(1);
+
+  document.getElementById("textResult").innerText =
+    improved;
+}
+
+function copyText() {
+
+  let result =
+    document.getElementById("textResult").innerText;
+
+  navigator.clipboard.writeText(result);
+
+  alert("Copied!");
+}
+
+function openCalculator() {
+
+  document.getElementById("calculator").style.display = "block";
+  document.getElementById("textTool").style.display = "none";
+
+  window.scrollTo({
+    top: document.getElementById("calculator").offsetTop,
+    behavior: "smooth"
+  });
+}
+
+function calculate() {
+
+  let input =
+    document.getElementById("calcInput").value;
+
+  try {
+
+    let result = Function(
+      '"use strict"; return (' + input + ')'
+    )();
+
+    document.getElementById("calcResult").innerText =
+      result;
+
+  } catch {
+
+    document.getElementById("calcResult").innerText =
+      "Invalid calculation.";
+
+  }
+}
+
+function closeTools() {
+
+  document.getElementById("textTool").style.display = "none";
+  document.getElementById("calculator").style.display = "none";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+</script></body>
 </html>
