@@ -321,20 +321,37 @@ function improveText() {
 
   if (text.trim() === "") {
     document.getElementById("textResult").innerText =
-      "Please enter some text first.";
+      "Sila masukkan teks dahulu.";
     return;
   }
 
-  let improved = text
-    .replace(/\s+/g, " ")
-    .trim();
-
-  improved =
-    improved.charAt(0).toUpperCase() +
-    improved.slice(1);
-
   document.getElementById("textResult").innerText =
-    improved;
+    "AI sedang memproses...";
+
+  fetch("https://script.google.com/macros/s/AKfycbzJ8d05lfgk6AdGX-2dz6FJ5foO7cJAFwIyVuW9KkypW7PwGAvgkLVYolTtnklB_H9m/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      text: text
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+
+    if (data.success) {
+      document.getElementById("textResult").innerText =
+        data.summary;
+    } else {
+      document.getElementById("textResult").innerText =
+        "Ralat: " + data.error;
+    }
+
+  })
+  .catch(error => {
+
+    document.getElementById("textResult").innerText =
+      "Gagal menghubungi AI.";
+
+  });
 }
 
 function copyText() {
